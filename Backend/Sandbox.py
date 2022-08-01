@@ -1,0 +1,1 @@
+# pyinstaller --onefile sea_battle.py

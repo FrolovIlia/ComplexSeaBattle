@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <title>AJAX testing</title>
+</head>
+<body>
+  <a>Placeholder</a><br>
+  <button id='secret'>don't click on me!</button>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // $.post({
+    //       url: "/",
+    //       dataType: "json",
+    //       contentType: "application/json",
+    //       data: JSON.stringify({name: "Winner"}),
+    //       success: (data) => {alert(data.message)}
+    //     })
+    //
+    // $('#secret').click(() => {
+    //       $.post({
+    //             url: "/",
+    //             dataType: "json",
+    //             contentType: "application/json",
+    //             data: "",
+    //             success: function(data) {
+    //                   $('a').text(data.message + " outside of Hogwarts");
+    //                   $('#secret').remove();
+    //                 }
+    //           })
+    //     })
+
+
+    let request = {game_num: "10"}
+
+    $.post({
+          url: "/start_game",
+          contentType: "application/JSON",
+          dataType: "JSON",
+          data: JSON.stringify(request),
+          success: (data) => {alert(data.game_num)}
+        })
+
+  </script>
+</body>
+</html>
