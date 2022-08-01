@@ -1,8 +1,10 @@
-from typing import Union, Optional
+from typing import Optional
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from starlette.responses import FileResponse
+
+
+# from starlette.responses import FileResponse
 
 
 class Item(BaseModel):
@@ -13,21 +15,47 @@ class GameObject(BaseModel):
     shipType: str
     item: Item
 
+
 class JustKidding(BaseModel):
     go: GameObject
     status: str
 
+
+# -----------------------------------------
+
+class ShipRange(BaseModel):
+    size: int
+    count: int
+
+
+class ShipTypes(BaseModel):
+    ship_name: str
+    ship_data: ShipRange
+
+
+class Layouts(BaseModel):
+    ship: str
+    positions: list[int]
+
+
+class ShipsData(BaseModel):
+    shipTypes: ShipTypes
+    layout: Layouts
+
+
 app = FastAPI()
 game10 = 0
 
-@app.get("/")
-def get_root():
-    return FileResponse("index.html")
 
+# @app.get("/")
+# def get_root():
+#     return FileResponse("index.html")
+#
+#
+# @app.post("/")
+# def post_root(item: Item = Item(name="Magic")):
+#     return {"message": f'Hello, {item.name}'}
 
-@app.post("/")
-def post_root(item: Item = Item(name="Magic")):
-    return {"message": f'Hello, {item.name}'}
 
 @app.get("/start_game/{value}")
 def start_game(value: Optional[int]):
@@ -38,6 +66,7 @@ def start_game(value: Optional[int]):
 
     print("Играм началась!")
     return {"status": "Ok", "game_num": game10}
+
 
 @app.post("/start_game")
 def start_game(item: Item):
@@ -60,12 +89,9 @@ def increase_num():
     return {"status": "Ok", "game_num": game10}
 
 
-
-
 @app.get("/decrease")
 def decrease_num():
     global game10
     game10 = game10 - 1
     print("Уменьшаем на 1")
     return {"status": "Ok", "game_num": game10}
-

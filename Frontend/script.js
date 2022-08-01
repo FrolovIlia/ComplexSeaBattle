@@ -9,4 +9,3 @@ $('.game_field').click(function(e){
 
     alert(coordinate_x + ", " + coordinate_y);
 });
-
