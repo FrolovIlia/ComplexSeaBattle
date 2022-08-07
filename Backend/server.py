@@ -3,8 +3,8 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-
-# from starlette.responses import FileResponse
+from starlette.responses import FileResponse
+from starlette.staticfiles import StaticFiles
 
 
 class Item(BaseModel):
@@ -42,15 +42,20 @@ class ShipsData(BaseModel):
     shipTypes: ShipTypes
     layout: Layouts
 
+class ShotCoordinates(BaseModel):
+    shot: list[int]
+
 
 app = FastAPI()
 game10 = 0
 
+app.mount("/static", StaticFiles(directory="Frontend", html=True), name="static")
 
-# @app.get("/")
-# def get_root():
-#     return FileResponse("index.html")
-#
+
+@app.get("/")
+def get_root():
+    return FileResponse("Frontend/index.html")
+
 #
 # @app.post("/")
 # def post_root(item: Item = Item(name="Magic")):
@@ -69,16 +74,14 @@ def start_game(value: Optional[int]):
 
 
 @app.post("/start_game")
-def start_game(item: Item):
-    global game10
-    game10 = 0
-    print(f"item: {item}")
-    if hasattr(item, "game_num"):
+def start_game(data: ShipsData):
+
+    print(f"Приняли JSON: {data}")
+    if hasattr(data, "game_num"):
         print("hasattr")
-        game10 = item.game_num
 
     print("Играм началась!")
-    return {"status": "Ok", "game_num": game10}
+    return {"status": "Ok"}
 
 
 @app.get("/increase")

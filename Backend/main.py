@@ -26,7 +26,7 @@ def get_field_condition():
 class GameFieldCondition:
     sample = None
 
-    def __init__(self):
+    def __init__(self, ships_dict=ships_dict):
         self.base_field = None
         self.field_with_ships = None
         if GameFieldCondition.sample:
