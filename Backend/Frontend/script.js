@@ -28,11 +28,24 @@ $('.game_field').click(function(e){
     alert(coordinate_x + ", " + coordinate_y);
 
 
-    for (let pos = 0; pos < data.layout.length; pos++) {
-        alert("Нужно подбить: " + data.layout[pos].ship + ", " + "Количество палуб: " +
-            data.layout[pos].positions.length)
-    }
+    // for (let pos = 0; pos < data.layout.length; pos++) {
+    //     alert("Нужно подбить: " + data.layout[pos].ship + ", " + "Количество палуб: " +
+    //         data.layout[pos].positions.length)
+    // }
 });
+
+
+$.post({
+          url: "/start_game",
+          dataType: "json",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+          success: (data) => {alert(data.message)}
+        })
+
+
+
+
 
 function drawIndicators(ship_name) {
     let text = "";
@@ -52,18 +65,14 @@ let counter1_value = 0
 // let counter2_value = 0
 
 function drawCountValue1(value1) {
-
     if (value1 > counter1_value) {
         counter1_value = value1
     }
     return counter1_value
 }
 
-document.getElementById(count_value1).innerHTML = drawCountValue1(value1);
 
-
-
+document.getElementById("count1").innerHTML = "0" + drawCountValue1(counter1_value);
 
 
 // Отправить на бэк джейсон data
-

@@ -75,7 +75,6 @@ def start_game(value: Optional[int]):
 
 @app.post("/start_game")
 def start_game(data: ShipsData):
-
     print(f"Приняли JSON: {data}")
     if hasattr(data, "game_num"):
         print("hasattr")
@@ -98,3 +97,8 @@ def decrease_num():
     game10 = game10 - 1
     print("Уменьшаем на 1")
     return {"status": "Ok", "game_num": game10}
+
+
+@app.get("/test")
+def test_frase():
+    return {"code frase": "hello world"}
