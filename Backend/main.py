@@ -84,7 +84,6 @@ if __name__ == '__main__':
         GameLogic.shooting(shot)
 
         field_condition.note_shoot(shot)
-        # field_condition.show_field(with_ships=True)
         field_condition.show_field()
 
     else:

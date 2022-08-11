@@ -24,27 +24,16 @@ $('.game_field').click(function(e){
 
     let coordinate_x = Math.floor(x/size_sect);
     let coordinate_y = Math.floor(y/size_sect);
+    let complex_coordinate = [coordinate_x, coordinate_y]
 
     alert(coordinate_x + ", " + coordinate_y);
-
+    alert("На БЭК буду передавать координаты: " + complex_coordinate)
 
     // for (let pos = 0; pos < data.layout.length; pos++) {
     //     alert("Нужно подбить: " + data.layout[pos].ship + ", " + "Количество палуб: " +
     //         data.layout[pos].positions.length)
     // }
 });
-
-
-$.post({
-          url: "/start_game",
-          dataType: "json",
-          contentType: "application/json",
-          data: JSON.stringify(data),
-          success: (data) => {alert(data.message)}
-        })
-
-
-
 
 
 function drawIndicators(ship_name) {
@@ -71,8 +60,21 @@ function drawCountValue1(value1) {
     return counter1_value
 }
 
-
 document.getElementById("count1").innerHTML = "0" + drawCountValue1(counter1_value);
 
 
-// Отправить на бэк джейсон data
+$.post({
+    url: "/start_game",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: (data) => {data.message}
+})
+
+$.post({
+    url: "/shot_coordinate",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: (data) => {data.message}
+})
