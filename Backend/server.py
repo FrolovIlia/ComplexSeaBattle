@@ -3,8 +3,6 @@ from pydantic import BaseModel
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
-from GameLogic import ships_dict
-
 
 class ShipRange(BaseModel):
     size: int
@@ -46,7 +44,9 @@ def get_root():
 
 @app.post("/start_game")
 def start_game(data: ShipsData):
-    return data
+    print("Стартовая информация успешно принята")
+    start_data = data.json()
+    return start_data
 
 
 @app.post("/shot_coordinate")
