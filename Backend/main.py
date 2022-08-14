@@ -26,14 +26,14 @@ def get_field_condition():
 class GameFieldCondition:
     sample = None
 
-    def __init__(self, ships_dict=ships_dict):
+    def __init__(self, local_ships_dict=ships_dict):
         self.base_field = None
         self.field_with_ships = None
         if GameFieldCondition.sample:
             self = GameFieldCondition.sample
         else:
             self.start_field()
-            self.add_ships(ships_dict, dict_indicator_pos)
+            self.add_ships(local_ships_dict, dict_indicator_pos)
             GameFieldCondition.sample = self
 
     def start_field(self):

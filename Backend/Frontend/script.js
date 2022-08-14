@@ -29,11 +29,14 @@ $('.game_field').click(function(e){
     alert(coordinate_x + ", " + coordinate_y);
     alert("На БЭК буду передавать координаты: " + complex_coordinate)
     console.log(complex_coordinate)
-    return complex_coordinate
-    // for (let pos = 0; pos < data.layout.length; pos++) {
-    //     alert("Нужно подбить: " + data.layout[pos].ship + ", " + "Количество палуб: " +
-    //         data.layout[pos].positions.length)
-    // }
+
+    $.post({
+    url: "/shot_coordinate",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({shot: complex_coordinate}),
+    success: (shot_value) => {console.log(shot_value.message)}
+})
 });
 
 
@@ -72,12 +75,5 @@ $.post({
     success: (data) => {data.message}
 })
 
-let shot_value = [1, 0]  //Тест
 
-$.post({
-    url: "/shot_coordinate",
-    dataType: "html",
-    contentType: "application/json",
-    data: {shot_value: 'Координаты выстрела'},
-    success: (shot_value) => {shot_value.message}
-})
+

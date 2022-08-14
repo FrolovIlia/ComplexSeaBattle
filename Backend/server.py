@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
+from typing import Literal
 
-from Backend.main import GameFieldCondition
+from main import GameFieldCondition
 
 field_condition = None
 
@@ -34,6 +35,9 @@ class ShotCoordinates(BaseModel):
     shot: list[int]
 
 
+class SuccessfulStart(BaseModel):
+    message: Literal["Ok"]
+
 app = FastAPI()
 game10 = 0
 
@@ -45,18 +49,19 @@ def get_root():
     return FileResponse("Frontend/index.html")
 
 
-@app.post("/start_game")
+@app.post("/start_game", response_model=SuccessfulStart)
 def start_game(data: ShipsData):
     global field_condition
     print("Стартовая информация успешно принята")
     start_data = data.dict()
     field_condition = GameFieldCondition(start_data)
-    return {"massage": "Ok"}
+    return SuccessfulStart(message="Ok")
 
 
 @app.post("/shot_coordinate")
 def shot_data(coordinates: ShotCoordinates):
-    return coordinates
+    print("Координаты пришли", coordinates.shot)
+    return {"massage": "Координаты переданы"}  # Это заглушка, в итоге, здесь будут возвращаться данные о результатах попадания.
 
 #
 # @app.post("/")
