@@ -3,6 +3,9 @@ from pydantic import BaseModel
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
+from Backend.main import GameFieldCondition
+
+field_condition = None
 
 class ShipRange(BaseModel):
     size: int
@@ -44,9 +47,11 @@ def get_root():
 
 @app.post("/start_game")
 def start_game(data: ShipsData):
+    global field_condition
     print("Стартовая информация успешно принята")
-    start_data = data.json()
-    return start_data
+    start_data = data.dict()
+    field_condition = GameFieldCondition(start_data)
+    return {"massage": "Ok"}
 
 
 @app.post("/shot_coordinate")
