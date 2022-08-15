@@ -26,7 +26,7 @@ $('.game_field').click(function(e){
     let coordinate_y = Math.floor(y/size_sect);
     let complex_coordinate = [coordinate_x, coordinate_y]
 
-    alert(coordinate_x + ", " + coordinate_y);
+    // alert(coordinate_x + ", " + coordinate_y);
     alert("На БЭК буду передавать координаты: " + complex_coordinate)
     console.log(complex_coordinate)
 
@@ -35,9 +35,24 @@ $('.game_field').click(function(e){
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify({shot: complex_coordinate}),
-    success: (shot_value) => {console.log(shot_value.message)}
-})
+    success: (shot_value) => {
+        console.log(shot_value.message)}
+    })
+
 });
+
+function drawHits(shot_hit) {
+    if (shot_hit) {
+        // Заменить ячейку на поле - подбитие
+        alert(shot_hit)
+    } else {
+        // Заменить ячейку на промах
+        alert(shot_hit)
+    }
+}
+
+
+
 
 
 function drawIndicators(ship_name) {

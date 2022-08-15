@@ -5,8 +5,10 @@ from starlette.staticfiles import StaticFiles
 from typing import Literal
 
 from main import GameFieldCondition
+from GameLogic import shooting, shot_at_ship
 
 field_condition = None
+
 
 class ShipRange(BaseModel):
     size: int
@@ -38,6 +40,7 @@ class ShotCoordinates(BaseModel):
 class SuccessfulStart(BaseModel):
     message: Literal["Ok"]
 
+
 app = FastAPI()
 game10 = 0
 
@@ -61,7 +64,18 @@ def start_game(data: ShipsData):
 @app.post("/shot_coordinate")
 def shot_data(coordinates: ShotCoordinates):
     print("Координаты пришли", coordinates.shot)
-    return {"massage": "Координаты переданы"}  # Это заглушка, в итоге, здесь будут возвращаться данные о результатах попадания.
+    shooting(coordinates.shot)
+
+    return {"shot_value": "shot_at_ship"}  # Это заглушка, в итоге, здесь будут возвращаться данные о результатах попадания.
+
+
+
+
+
+
+
+
+
 
 #
 # @app.post("/")
