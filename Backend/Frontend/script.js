@@ -35,20 +35,22 @@ $('.game_field').click(function(e){
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify({shot: complex_coordinate}),
-    success: (shot_value) => {
-        console.log(shot_value.message)}
+    success: (value) => {
+        console.log(value.shot_value)}
     })
-
 });
 
-function drawHits(shot_hit) {
-    if (shot_hit) {
-        // Заменить ячейку на поле - подбитие
-        alert(shot_hit)
+
+let shot_symbol = ""
+
+function drawHits(shot_coordinate, shot_result)  {
+    if (shot_result) {
+        document.getElementById("l + shot_coordinate[0] + c + shot_coordinate[1]").innerHTML =
+            shot_symbol = "<img src=\"static/images/black%20x.png\" alt=\"\">"
     } else {
-        // Заменить ячейку на промах
-        alert(shot_hit)
+            shot_symbol = "<img src=\"static/images/red%20x.png\" alt=\"\">"
     }
+    return shot_symbol
 }
 
 

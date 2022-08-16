@@ -5,7 +5,7 @@ from starlette.staticfiles import StaticFiles
 from typing import Literal
 
 from main import GameFieldCondition
-from GameLogic import shooting, shot_at_ship
+from GameLogic import shooting
 
 field_condition = None
 
@@ -41,6 +41,10 @@ class SuccessfulStart(BaseModel):
     message: Literal["Ok"]
 
 
+class ShotResponse(BaseModel):
+    shot_value: bool
+
+
 app = FastAPI()
 game10 = 0
 
@@ -61,21 +65,16 @@ def start_game(data: ShipsData):
     return SuccessfulStart(message="Ok")
 
 
+web_field_condition = GameFieldCondition()
+
+
 @app.post("/shot_coordinate")
 def shot_data(coordinates: ShotCoordinates):
     print("Координаты пришли", coordinates.shot)
-    shooting(coordinates.shot)
 
-    return {"shot_value": "shot_at_ship"}  # Это заглушка, в итоге, здесь будут возвращаться данные о результатах попадания.
+    web_field_condition.note_shoot(coordinates.shot)
 
-
-
-
-
-
-
-
-
+    return ShotResponse(shot_value=True)  # Здесь должно передаваться булево значение попал/не попал
 
 #
 # @app.post("/")
