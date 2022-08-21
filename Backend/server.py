@@ -5,10 +5,8 @@ from starlette.staticfiles import StaticFiles
 from typing import Literal
 
 from main import GameFieldCondition
-from GameLogic import shooting
 
-field_condition = None
-
+field_condition: GameFieldCondition | None = None
 
 class ShipRange(BaseModel):
     size: int
@@ -43,6 +41,10 @@ class SuccessfulStart(BaseModel):
 
 class ShotResponse(BaseModel):
     shot_value: bool
+    dead_ships: int
+    # Данные - корабль - количество подбитий
+
+    # Данные - общее количество выстрелов (для вывода финальной фразы со статистикой)
 
 
 app = FastAPI()
@@ -65,16 +67,15 @@ def start_game(data: ShipsData):
     return SuccessfulStart(message="Ok")
 
 
-web_field_condition = GameFieldCondition()
-
-
 @app.post("/shot_coordinate")
 def shot_data(coordinates: ShotCoordinates):
     print("Координаты пришли", coordinates.shot)
+    global field_condition
 
-    web_field_condition.note_shoot(coordinates.shot)
+    value = field_condition.is_hited_ship(coordinates.shot)
+    dead_ships = field_condition.count_dead_ships()
 
-    return ShotResponse(shot_value=True)  # Здесь должно передаваться булево значение попал/не попал
+    return ShotResponse(shot_value=value, dead_ships=dead_ships)
 
 #
 # @app.post("/")

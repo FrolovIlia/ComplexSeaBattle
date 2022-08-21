@@ -26,8 +26,7 @@ $('.game_field').click(function(e){
     let coordinate_y = Math.floor(y/size_sect);
     let complex_coordinate = [coordinate_x, coordinate_y]
 
-    // alert(coordinate_x + ", " + coordinate_y);
-    alert("На БЭК буду передавать координаты: " + complex_coordinate)
+    // alert("На БЭК буду передавать координаты: " + complex_coordinate)
     console.log(complex_coordinate)
 
     $.post({
@@ -35,26 +34,29 @@ $('.game_field').click(function(e){
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify({shot: complex_coordinate}),
-    success: (value) => {
-        console.log(value.shot_value)}
+    success: (result) => {
+        console.log(result.shot_value);
+        drawHits(complex_coordinate, result.shot_value);
+        console.log(result.dead_ships);
+        document.getElementById("count1").innerHTML = "0" + result.dead_ships;
+    }
     })
 });
 
 
-let shot_symbol = ""
+function drawHits(shot_coordinates, shot_result)  {
+    let shot_symbol = "";
 
-function drawHits(shot_coordinate, shot_result)  {
     if (shot_result) {
-        document.getElementById("l + shot_coordinate[0] + c + shot_coordinate[1]").innerHTML =
-            shot_symbol = "<img src=\"static/images/black%20x.png\" alt=\"\">"
+        document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]).innerHTML =
+            shot_symbol = "<img class=\"section_pic\" src=\"static/images/red%20x.png\" alt=\"\">";
+
     } else {
-            shot_symbol = "<img src=\"static/images/red%20x.png\" alt=\"\">"
+        document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]).innerHTML =
+            shot_symbol = "<img class=\"section_pic\" src=\"static/images/black%20x.png\" alt=\"\">";
     }
-    return shot_symbol
+    return shot_symbol;
 }
-
-
-
 
 
 function drawIndicators(ship_name) {
@@ -71,17 +73,7 @@ for (let shipName in data.shipTypes) {
 }
 
 
-let counter1_value = 0
-// let counter2_value = 0
-
-function drawCountValue1(value1) {
-    if (value1 > counter1_value) {
-        counter1_value = value1
-    }
-    return counter1_value
-}
-
-document.getElementById("count1").innerHTML = "0" + drawCountValue1(counter1_value);
+document.getElementById("count1").innerHTML = "00";
 
 
 $.post({

@@ -9,13 +9,13 @@ def start_field():
     return clean_field
 
 
-def check_shoot(shoot: str) -> list[int]:
-    if len(shoot) == 2 and shoot.isnumeric():
-        print('Данные верны')
-        return [int(shoot[0]), int(shoot[1])]
-    else:
-        trying = input('Пожалуйста, введите корректные координаты в формате XY: ')
-        return check_shoot(trying)
+# def check_shoot(shoot: str) -> list[int]:
+#     if len(shoot) == 2 and shoot.isnumeric():
+#         print('Данные верны')
+#         return [int(shoot[0]), int(shoot[1])]
+#     else:
+#         trying = input('Пожалуйста, введите корректные координаты в формате XY: ')
+#         return check_shoot(trying)
 
 
 def get_field_condition():
@@ -24,17 +24,13 @@ def get_field_condition():
 
 
 class GameFieldCondition:
-    sample = None
-
     def __init__(self, local_ships_dict=ships_dict):
         self.base_field = None
         self.field_with_ships = None
-        if GameFieldCondition.sample:
-            self = GameFieldCondition.sample
-        else:
-            self.start_field()
-            self.add_ships(local_ships_dict, dict_indicator_pos)
-            GameFieldCondition.sample = self
+        self.start_field()
+        self.all_ships = []
+        self.add_ships(local_ships_dict, dict_indicator_pos)
+
 
     def start_field(self):
         field_size = 10
@@ -46,6 +42,7 @@ class GameFieldCondition:
         for ship in json_ship_dict["layout"]:
             indicator_pos = indicator_pos_dict[ship['ship']]
             ship_instance = Ship(ship['positions'], ship['ship'], indicator_pos)
+            self.all_ships.append(ship_instance)
 
             for x, y in ship_instance.positions:
                 self.field_with_ships[x][y] = ship_instance
@@ -68,6 +65,23 @@ class GameFieldCondition:
                 print(field[y][x], end=' ')
             print()
 
+    def is_hited_ship(self, shot):
+        self.note_shoot(shot)
+
+        return isinstance(self.field_with_ships[shot[0]][shot[1]], Ship)
+
+    def count_dead_ships(self):
+        counter = 0
+        # Нужно пройти по всем кораблям и спросить, подбиты ли они, и увеличивать каунтер при полном подбити.
+        for ship in self.all_ships:
+            if ship.ship_dead():
+                counter += 1
+
+        return counter
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -79,7 +93,7 @@ if __name__ == '__main__':
 
     while stop_game() is False:
         shot = input('Введите координаты в формате XY: ')
-        shot = check_shoot(shot)
+        # shot = check_shoot(shot)
 
         GameLogic.shooting(shot)
 
