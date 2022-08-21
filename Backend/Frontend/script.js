@@ -35,8 +35,8 @@ $('.game_field').click(function(e){
     contentType: "application/json",
     data: JSON.stringify({shot: complex_coordinate}),
     success: (result) => {
-        console.log(result.shot_value);
-        drawHits(complex_coordinate, result.shot_value);
+        console.log(result.is_hited_ship);
+        drawHits(complex_coordinate, result.is_hited_ship);
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
     }

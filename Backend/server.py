@@ -40,9 +40,11 @@ class SuccessfulStart(BaseModel):
 
 
 class ShotResponse(BaseModel):
-    shot_value: bool
+    is_hited_ship: bool
     dead_ships: int
     # Данные - корабль - количество подбитий
+    ship_hits: int | None
+    ship_name: str | None
 
     # Данные - общее количество выстрелов (для вывода финальной фразы со статистикой)
 
@@ -75,7 +77,7 @@ def shot_data(coordinates: ShotCoordinates):
     value = field_condition.is_hited_ship(coordinates.shot)
     dead_ships = field_condition.count_dead_ships()
 
-    return ShotResponse(shot_value=value, dead_ships=dead_ships)
+    return ShotResponse(is_hited_ship=value, dead_ships=dead_ships)
 
 #
 # @app.post("/")
