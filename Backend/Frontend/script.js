@@ -26,7 +26,6 @@ $('.game_field').click(function(e){
     let coordinate_y = Math.floor(y/size_sect);
     let complex_coordinate = [coordinate_x, coordinate_y]
 
-    // alert("На БЭК буду передавать координаты: " + complex_coordinate)
     console.log(complex_coordinate)
 
     $.post({
@@ -39,6 +38,9 @@ $('.game_field').click(function(e){
         drawHits(complex_coordinate, result.is_hited_ship);
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
+        // Вывести информацию в консоль Корабль - количество попаданий.
+
+        // Выполнить функцию обновления индикаторов
     }
     })
 });

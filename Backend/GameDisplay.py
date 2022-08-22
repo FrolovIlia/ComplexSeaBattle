@@ -157,7 +157,7 @@ field_frame = pygame.draw.rect(field_surf, (250, 203, 3),
 
 # Указываем выстрелы на поле
 
-field_condition = GameFieldCondition()  # interesting, to transfer
+field_condition = GameFieldCondition()  # interesting, to transfer +
 
 game_display.blit(field_surf, (display_size_x / 2.3, display_size_y / 10))  # Отрисовываем игровое поле
 
@@ -191,7 +191,7 @@ while running:
 
         update_indicators(field_condition)  # Индикаторы подбития
 
-        update_counter_1(GameLogic.dead_ships)  # interesting
+        update_counter_1(GameLogic.dead_ships)  # interesting +
         # update_counter_2()
 
         if GameLogic.dead_ships == len(ships_dict["layout"]):    # interesting, to transfer

@@ -8,6 +8,7 @@ from main import GameFieldCondition
 
 field_condition: GameFieldCondition | None = None
 
+
 class ShipRange(BaseModel):
     size: int
     count: int
@@ -47,6 +48,7 @@ class ShotResponse(BaseModel):
     ship_name: str | None
 
     # Данные - общее количество выстрелов (для вывода финальной фразы со статистикой)
+    total_count: int | None
 
 
 app = FastAPI()
@@ -77,37 +79,5 @@ def shot_data(coordinates: ShotCoordinates):
     value = field_condition.is_hited_ship(coordinates.shot)
     dead_ships = field_condition.count_dead_ships()
 
-    return ShotResponse(is_hited_ship=value, dead_ships=dead_ships)
-
-#
-# @app.post("/")
-# def post_root(item: Item = Item(name="Magic")):
-#     return {"message": f'Hello, {item.name}'}
-
-
-# @app.get("/start_game/{value}")
-# def start_game(value: Optional[int]):
-#     global game10
-#     game10 = 0
-#     if value:
-#         game10 = value
-#
-#     print("Играм началась!")
-#     return {"status": "Ok", "game_num": game10}
-
-#
-
-# @app.get("/increase")
-# def increase_num():
-#     global game10
-#     game10 = game10 + 1
-#     print("Увеличиваем на 1")
-#     return {"status": "Ok", "game_num": game10}
-#
-#
-# @app.get("/decrease")
-# def decrease_num():
-#     global game10
-#     game10 = game10 - 1
-#     print("Уменьшаем на 1")
-#     return {"status": "Ok", "game_num": game10}
+    return ShotResponse(is_hited_ship=value,
+                        dead_ships=dead_ships)  # Здесь добавить и отправить ship_hits и ship_name
