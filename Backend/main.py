@@ -67,6 +67,14 @@ class GameFieldCondition:
         return counter
 
 
+    # def update_indicators(condition_field):
+    #     current_pos = condition_field.field_with_ships[shot[0]][shot[1]]
+    #     if isinstance(current_pos, Ship):
+    #         padded_cell = pygame.transform.scale(pygame.image.load('pictures/m_Hit small.png'),
+    #                                              (small_xy_hit_size, small_xy_hit_size))
+    #         game_display.blit(padded_cell, current_pos.indicator_pos[current_pos.counter_hits() - 1])
+
+
 if __name__ == '__main__':
 
     field_condition = GameFieldCondition()

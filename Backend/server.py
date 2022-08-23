@@ -4,6 +4,7 @@ from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 from typing import Literal
 
+from Ships import Ship
 from main import GameFieldCondition
 
 field_condition: GameFieldCondition | None = None
@@ -78,6 +79,12 @@ def shot_data(coordinates: ShotCoordinates):
 
     value = field_condition.is_hited_ship(coordinates.shot)
     dead_ships = field_condition.count_dead_ships()
+    ship_name = "submarine"  # Тестовые данные, здесь должно передаваться имя корабля в который попали или ничего.
+    ship_hits = 2
 
     return ShotResponse(is_hited_ship=value,
-                        dead_ships=dead_ships)  # Здесь добавить и отправить ship_hits и ship_name
+                        dead_ships=dead_ships,
+                        ship_name=ship_name,
+                        ship_hits=ship_hits
+                        )  # Здесь добавить и отправить ship_hits и ship_name
+

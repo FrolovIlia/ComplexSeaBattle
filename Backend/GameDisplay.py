@@ -77,13 +77,13 @@ def update_indicators(condition_field):
         game_display.blit(padded_cell, current_pos.indicator_pos[current_pos.counter_hits() - 1])
 
 
-def draw_lines():
-    for line in range(1, LINES):
-        pygame.draw.line(field_surf, (0, 0, 0), ((field_surf.get_width() / LINES) * line, 0),
-                         ((field_surf.get_width() / LINES) * line, field_surf.get_width()), 2)
-
-        pygame.draw.line(field_surf, (0, 0, 0), (0, (field_surf.get_height() / LINES) * line),
-                         (field_surf.get_height(), (field_surf.get_height() / LINES) * line), 2)
+# def draw_lines():
+#     for line in range(1, LINES):
+#         pygame.draw.line(field_surf, (0, 0, 0), ((field_surf.get_width() / LINES) * line, 0),
+#                          ((field_surf.get_width() / LINES) * line, field_surf.get_width()), 2)
+#
+#         pygame.draw.line(field_surf, (0, 0, 0), (0, (field_surf.get_height() / LINES) * line),
+#                          (field_surf.get_height(), (field_surf.get_height() / LINES) * line), 2)
 
 
 def click_on_field():
@@ -150,7 +150,7 @@ field_surf.fill("gray")
 
 big_xy_hit_size = field_surf.get_width() / 10
 
-draw_lines()  # Разбиваем поле линиями
+# draw_lines()  # Разбиваем поле линиями
 
 field_frame = pygame.draw.rect(field_surf, (250, 203, 3),
                                (0, 0, display_size_x / 2, display_size_x / 2), 3)  # Добавляем оранжевую рамку

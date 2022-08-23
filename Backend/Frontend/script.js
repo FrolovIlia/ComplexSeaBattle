@@ -39,8 +39,10 @@ $('.game_field').click(function(e){
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
         // Вывести информацию в консоль Корабль - количество попаданий.
-
+        console.log(result.ship_name)
+        console.log("Попаданий в корабль: " + result.ship_hits)
         // Выполнить функцию обновления индикаторов
+        updateIndicators(result.ship_name, result.ship_hits)
     }
     })
 });
@@ -65,10 +67,38 @@ function drawIndicators(ship_name) {
     let text = "";
 
     for (let ship_pos = 0; ship_pos < data.shipTypes[ship_name].size; ship_pos++) {
-        text += "<img src=\"static/images/m_Miss%20small.png\" alt=\"\">"
+        text += "<img class=\"indicator_cell\" src=\"static/images/m_Miss%20small.png\" alt=\"\">"
         }
         return text;
 }
+
+function updateIndicators(ship_name, ship_hits) {
+//    Здесь нужно сделать следующее:
+//     Берём имя корабля, находим ID в формате "carrier-lives"
+//    У этого корабля есть индикаторы. Мы заменяем по очереди все индикаторы, что есть сейчас, на подбитые
+//    по количеству подбитий.
+//    Для этого используем replacedNode = parentNode.replaceChild(newChild, oldChild);
+//   Проходим циклом, изменяя дочерние элементы нужного блока.
+//
+    let text = "";
+
+    for (let ship_pos = 0; ship_pos < ship_hits; ship_pos++) {
+        text += "<img class=\"indicator_cell\" src=\"static/images/m_Hit%20small.png\" alt=\"\">"
+        }
+        return text;
+
+
+    console.log("Имя корабля принято как: " + ship_name)
+    console.log("Кол-во подбитий: " + ship_hits)
+
+}
+
+
+
+
+
+
+
 
 for (let shipName in data.shipTypes) {
     document.getElementById(shipName + "-lives").innerHTML = drawIndicators(shipName);
