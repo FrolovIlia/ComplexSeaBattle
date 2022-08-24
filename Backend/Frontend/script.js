@@ -39,10 +39,10 @@ $('.game_field').click(function(e){
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
         // Вывести информацию в консоль Корабль - количество попаданий.
-        console.log(result.ship_name)
+        console.log("Название корабля: " + result.ship_name)
         console.log("Попаданий в корабль: " + result.ship_hits)
         // Выполнить функцию обновления индикаторов
-        updateIndicators(result.ship_name, result.ship_hits)
+        // updateIndicators(result.ship_name, result.ship_hits)
     }
     })
 });
@@ -92,10 +92,6 @@ function updateIndicators(ship_name, ship_hits) {
     console.log("Кол-во подбитий: " + ship_hits)
 
 }
-
-
-
-
 
 
 

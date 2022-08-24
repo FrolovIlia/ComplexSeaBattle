@@ -78,13 +78,12 @@ def shot_data(coordinates: ShotCoordinates):
     global field_condition
 
     value = field_condition.is_hited_ship(coordinates.shot)
+    ship_name = field_condition.is_name_ship(coordinates.shot)
+    ship_hits = field_condition.is_hits_at_ships(coordinates.shot)
     dead_ships = field_condition.count_dead_ships()
-    ship_name = "submarine"  # Тестовые данные, здесь должно передаваться имя корабля в который попали или ничего.
-    ship_hits = 2
 
     return ShotResponse(is_hited_ship=value,
                         dead_ships=dead_ships,
                         ship_name=ship_name,
-                        ship_hits=ship_hits
-                        )  # Здесь добавить и отправить ship_hits и ship_name
+                        ship_hits=ship_hits)  # Добавить счётчик общего количества выстрелов
 

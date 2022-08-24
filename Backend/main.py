@@ -1,6 +1,6 @@
 import GameLogic
 from GameLogic import *
-from Ships import *
+from Ships import dict_indicator_pos, Ship
 
 
 def start_field():
@@ -67,12 +67,14 @@ class GameFieldCondition:
         return counter
 
 
-    # def update_indicators(condition_field):
-    #     current_pos = condition_field.field_with_ships[shot[0]][shot[1]]
-    #     if isinstance(current_pos, Ship):
-    #         padded_cell = pygame.transform.scale(pygame.image.load('pictures/m_Hit small.png'),
-    #                                              (small_xy_hit_size, small_xy_hit_size))
-    #         game_display.blit(padded_cell, current_pos.indicator_pos[current_pos.counter_hits() - 1])
+    def is_name_ship(self, shot):
+        name = "submarine"  # Хардкод для теста. Нужно брать текущее имя корабля.
+        return name
+
+    def is_hits_at_ships(self, shot):
+        hits = 3  # Хардкод для теста. Нужно брать текущие данные корабля.
+        return hits
+
 
 
 if __name__ == '__main__':
