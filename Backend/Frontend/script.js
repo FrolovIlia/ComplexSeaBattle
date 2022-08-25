@@ -42,14 +42,14 @@ $('.game_field').click(function(e){
         console.log("Название корабля: " + result.ship_name)
         console.log("Попаданий в корабль: " + result.ship_hits)
         // Выполнить функцию обновления индикаторов
-        // updateIndicators(result.ship_name, result.ship_hits)
+        updateIndicators(result.ship_name, result.ship_hits)
     }
     })
 });
 
 
 function drawHits(shot_coordinates, shot_result)  {
-    let shot_symbol = "";
+    let shot_symbol;
 
     if (shot_result) {
         document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]).innerHTML =
@@ -67,30 +67,26 @@ function drawIndicators(ship_name) {
     let text = "";
 
     for (let ship_pos = 0; ship_pos < data.shipTypes[ship_name].size; ship_pos++) {
-        text += "<img class=\"indicator_cell\" src=\"static/images/m_Miss%20small.png\" alt=\"\">"
+        text += "<img class=\"indicator_cell\" src=\"static/images/m_Miss_small.png\" alt=\"\">"
         }
         return text;
 }
 
-function updateIndicators(ship_name, ship_hits) {
-//    Здесь нужно сделать следующее:
-//     Берём имя корабля, находим ID в формате "carrier-lives"
-//    У этого корабля есть индикаторы. Мы заменяем по очереди все индикаторы, что есть сейчас, на подбитые
-//    по количеству подбитий.
-//    Для этого используем replacedNode = parentNode.replaceChild(newChild, oldChild);
-//   Проходим циклом, изменяя дочерние элементы нужного блока.
-//
-    let text = "";
 
-    for (let ship_pos = 0; ship_pos < ship_hits; ship_pos++) {
-        text += "<img class=\"indicator_cell\" src=\"static/images/m_Hit%20small.png\" alt=\"\">"
+function updateIndicators(ship_name, ship_hits) {
+    let text = "";
+    if (ship_name) {
+        for (let ship_pos = 0; ship_pos < data.shipTypes[ship_name].size; ship_pos++) {
+            if (ship_pos < ship_hits) {
+                document.getElementById(ship_name + "-lives").innerHTML =
+                    text += "<img class=\"indicator_cell\" src=\"static/images/m_Hit_small.png\" alt=\"\">";
+            } else {
+                document.getElementById(ship_name + "-lives").innerHTML =
+                    text += "<img class=\"indicator_cell\" src=\"static/images/m_Miss_small.png\" alt=\"\">";
+            }
         }
         return text;
-
-
-    console.log("Имя корабля принято как: " + ship_name)
-    console.log("Кол-во подбитий: " + ship_hits)
-
+    }
 }
 
 

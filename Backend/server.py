@@ -4,7 +4,6 @@ from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 from typing import Literal
 
-from Ships import Ship
 from main import GameFieldCondition
 
 field_condition: GameFieldCondition | None = None
@@ -86,4 +85,3 @@ def shot_data(coordinates: ShotCoordinates):
                         dead_ships=dead_ships,
                         ship_name=ship_name,
                         ship_hits=ship_hits)  # Добавить счётчик общего количества выстрелов
-

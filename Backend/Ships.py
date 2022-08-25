@@ -14,7 +14,7 @@ class Ship:
             self.indicator_pos = indicator_pos
             self.ship_length = ship_length
             self.padded_pos = padded_pos
-            self.name = name
+            self.ship_name = name
             self.positions = positions
 
 

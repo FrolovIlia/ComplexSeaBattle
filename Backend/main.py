@@ -66,15 +66,17 @@ class GameFieldCondition:
                 counter += 1
         return counter
 
-
     def is_name_ship(self, shot):
-        name = "submarine"  # Хардкод для теста. Нужно брать текущее имя корабля.
-        return name
+        current_pos = self.field_with_ships[shot[0]][shot[1]]
+        if isinstance(current_pos, Ship):
+            name = current_pos.ship_name
+            return name
 
     def is_hits_at_ships(self, shot):
-        hits = 3  # Хардкод для теста. Нужно брать текущие данные корабля.
-        return hits
-
+        current_pos = self.field_with_ships[shot[0]][shot[1]]
+        if isinstance(current_pos, Ship):
+            hits = len(current_pos.padded_pos)
+            return hits
 
 
 if __name__ == '__main__':
