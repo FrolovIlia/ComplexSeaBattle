@@ -6,12 +6,12 @@ with open('data_file.json') as f:
     ships_dict = json.load(f)
 
 
-def stop_game():
-    if dead_ships == len(ships_dict["layout"]):
-        print('Игра закончена! Поздравляю!')
-        return True
-    else:
-        return False
+# def stop_game():
+#     if dead_ships == len(ships_dict["layout"]):
+#         print('Игра закончена! Поздравляю!')
+#         return True
+#     else:
+#         return False
 
 
 def shooting(hit):

@@ -15,6 +15,7 @@ const data = {
 ]
 }
 
+let total_shots_counter = 0
 
 $('.game_field').click(function(e){
     const target = this.getBoundingClientRect();
@@ -38,11 +39,21 @@ $('.game_field').click(function(e){
         drawHits(complex_coordinate, result.is_hited_ship);
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
-        // Вывести информацию в консоль Корабль - количество попаданий.
+
         console.log("Название корабля: " + result.ship_name)
         console.log("Попаданий в корабль: " + result.ship_hits)
-        // Выполнить функцию обновления индикаторов
+
         updateIndicators(result.ship_name, result.ship_hits)
+
+        total_shots_counter += 1  //Увеличить общий счётчик выстрелов
+        console.log("Всего выстрелов: " + total_shots_counter)
+
+        if (result.dead_ships === data["layout"].length) {
+            stopGame()
+            console.log("В этот момент будет заблокирован экран, " +
+                        "и показано сообщение со статистикой")
+        }
+
     }
     })
 });
@@ -90,6 +101,11 @@ function updateIndicators(ship_name, ship_hits) {
 }
 
 
+function stopGame() {
+    // Заблокировать экран
+    // Вывести финальную статистику
+}
+
 
 
 for (let shipName in data.shipTypes) {
@@ -107,6 +123,4 @@ $.post({
     data: JSON.stringify(data),
     success: (data) => {data.message}
 })
-
-
 

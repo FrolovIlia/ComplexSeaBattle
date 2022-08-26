@@ -77,13 +77,13 @@ def update_indicators(condition_field):
         game_display.blit(padded_cell, current_pos.indicator_pos[current_pos.counter_hits() - 1])
 
 
-# def draw_lines():
-#     for line in range(1, LINES):
-#         pygame.draw.line(field_surf, (0, 0, 0), ((field_surf.get_width() / LINES) * line, 0),
-#                          ((field_surf.get_width() / LINES) * line, field_surf.get_width()), 2)
-#
-#         pygame.draw.line(field_surf, (0, 0, 0), (0, (field_surf.get_height() / LINES) * line),
-#                          (field_surf.get_height(), (field_surf.get_height() / LINES) * line), 2)
+def draw_lines():
+    for line in range(1, LINES):
+        pygame.draw.line(field_surf, (0, 0, 0), ((field_surf.get_width() / LINES) * line, 0),
+                         ((field_surf.get_width() / LINES) * line, field_surf.get_width()), 2)
+
+        pygame.draw.line(field_surf, (0, 0, 0), (0, (field_surf.get_height() / LINES) * line),
+                         (field_surf.get_height(), (field_surf.get_height() / LINES) * line), 2)
 
 
 def click_on_field():
@@ -182,9 +182,9 @@ while running:
         # print(f"Координаты внутри поля: {field_pos_correction}")
         print(f"Координаты ячейки: {shot}")
 
-        GameLogic.shooting(list(shot))    # interesting, to transfer
+        GameLogic.shooting(list(shot))    # interesting, to transfer+
         update_counter_1(GameLogic.dead_ships)
-        field_condition.note_shoot(list(shot))  # interesting, to transfer
+        field_condition.note_shoot(list(shot))  # interesting, to transfer+
 
         draw_hits_on_field(field_condition)
         game_display.blit(field_surf, (display_size_x / 2.3, display_size_y / 10))
