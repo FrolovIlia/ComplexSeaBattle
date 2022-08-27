@@ -122,3 +122,11 @@ html{
 		/*background-color: rgba(136, 136, 204, 0.5);*/
 		z-index: 4444;
 	}
+
+.total_score_style {
+    font-family: 'Secular One', sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    text-align: center;
+
+}

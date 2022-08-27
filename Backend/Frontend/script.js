@@ -49,7 +49,7 @@ $('.game_field').click(function(e){
         console.log("Всего выстрелов: " + total_shots_counter)
 
         if (result.dead_ships === data["layout"].length) {
-            stopGame()
+            stopGame(total_shots_counter)
             console.log("В этот момент будет заблокирован экран, " +
                         "и показано сообщение со статистикой")
         }
@@ -101,9 +101,13 @@ function updateIndicators(ship_name, ship_hits) {
 }
 
 
-function stopGame() {
-    // Заблокировать экран
-    // Вывести финальную статистику
+function stopGame(total_shots_counter) {
+    // Заблокировать экран.
+    document.getElementById("content-blocker").innerHTML =
+        "<div id=\"content-blocker\" class=\"content-blocker\"></div>";
+    // Вывести финальную статистику.
+    document.getElementById("total_score").innerHTML =
+        "Congratulations! You won! Total number of shots: " + total_shots_counter;
 }
 
 
