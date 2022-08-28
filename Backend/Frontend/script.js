@@ -18,12 +18,12 @@ const data = {
 let total_shots_counter = 0
 
 
-//Этот элемент нужно переписать на JS (document get element by id)
-$('#game_field').click(function(e){
+const game_field = document.getElementById("game_field")
+game_field.onclick = function (e) {
     const target = this.getBoundingClientRect();
     const y = e.clientX - target.left;
     const x = e.clientY - target.top;
-    const size_sect = $('#game_field').width() / 10;
+    const size_sect = game_field.offsetWidth / 10;
 
     let coordinate_x = Math.floor(x/size_sect);
     let coordinate_y = Math.floor(y/size_sect);
@@ -58,23 +58,21 @@ $('#game_field').click(function(e){
     }).catch(function(error) {
       console.error('Ошибка:', error);
     })
-});
-
-
+};
 
 
 function drawHits(shot_coordinates, shot_result)  {
     let shot_symbol;
 
     if (shot_result) {
-        document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]).innerHTML =
-            shot_symbol = "<img class=\"section_pic\" src=\"static/images/red%20x.png\" alt=\"\">";
+        shot_symbol = "<img class=\"section_pic\" src=\"static/images/red%20x.png\" alt=\"\">";
 
     } else {
-        document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]).innerHTML =
-            shot_symbol = "<img class=\"section_pic\" src=\"static/images/black%20x.png\" alt=\"\">";
+        shot_symbol = "<img class=\"section_pic\" src=\"static/images/black%20x.png\" alt=\"\">";
     }
-    return shot_symbol;
+
+    document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]
+    ).innerHTML = shot_symbol
 }
 
 
