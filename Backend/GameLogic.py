@@ -1,35 +1,66 @@
-import json
-
-dead_ships = 0
-
-with open('data_file.json') as f:
-    ships_dict = json.load(f)
+from Ships import dict_indicator_pos, Ship
 
 
-# def stop_game():
-#     if dead_ships == len(ships_dict["layout"]):
-#         print('Игра закончена! Поздравляю!')
-#         return True
-#     else:
-#         return False
+class GameFieldCondition:
+    def __init__(self, local_ships_dict):
+        self.base_field = None
+        self.field_with_ships = None
+        self.start_field()
+        self.all_ships = []
+        self.add_ships(local_ships_dict, dict_indicator_pos)
 
+    def start_field(self):
+        field_size = 10
+        self.base_field = [['~'] * field_size for _ in range(field_size)]
 
-def shooting(hit):
-    global dead_ships
+    def add_ships(self, json_ship_dict, indicator_pos_dict):
+        self.field_with_ships = [line.copy() for line in self.base_field]
 
-    for ship in ships_dict["layout"]:
-        if hit in ship['positions']:
-            print(ship['positions'])
-            print("Попадание")
-            print(f"Удаляем из списка {hit}")
-            ship['positions'].remove(hit)
-            if len(ship['positions']) == 0:
-                print("Корабль полностью подбит")
-                dead_ships += 1
-                print(f'Подбито кораблей: {dead_ships}')
+        for ship in json_ship_dict["layout"]:
+            indicator_pos = indicator_pos_dict[ship['ship']]
+            ship_instance = Ship(ship['positions'], ship['ship'], indicator_pos)
+            self.all_ships.append(ship_instance)
 
+            for x, y in ship_instance.positions:
+                self.field_with_ships[x][y] = ship_instance
+
+    def note_shoot(self, shoot: list):
+        x, y = shoot
+        if isinstance(self.field_with_ships[x][y], Ship):
+            self.base_field[x][y] = '*'
+            self.field_with_ships[x][y].hit_at_ship(shoot)
         else:
-            print(ship['positions'])
-            print("Нет попадания")
+            self.base_field[x][y] = 'x'
 
-    return
+    def show_field(self, with_ships=False):
+        if with_ships:
+            field = self.field_with_ships
+        else:
+            field = self.base_field
+        for y in range(len(field)):
+            for x in range(len(field[y])):
+                print(field[y][x], end=' ')
+            print()
+
+    def is_hited_ship(self, shot_pos):
+        self.note_shoot(shot_pos)
+        return isinstance(self.field_with_ships[shot_pos[0]][shot_pos[1]], Ship)
+
+    def count_dead_ships(self):
+        counter = 0
+        for ship in self.all_ships:
+            if ship.ship_dead():
+                counter += 1
+        return counter
+
+    def is_name_ship(self, shot_pos):
+        current_pos = self.field_with_ships[shot_pos[0]][shot_pos[1]]
+        if isinstance(current_pos, Ship):
+            name = current_pos.ship_name
+            return name
+
+    def is_hits_at_ships(self, shot_pos):
+        current_pos = self.field_with_ships[shot_pos[0]][shot_pos[1]]
+        if isinstance(current_pos, Ship):
+            hits = len(current_pos.padded_pos)
+            return hits

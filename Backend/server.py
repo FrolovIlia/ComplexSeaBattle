@@ -1,58 +1,14 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
-from typing import Literal
 
-from main import GameFieldCondition
+from schemas import *
+from GameLogic import GameFieldCondition
 
 field_condition: GameFieldCondition | None = None
 
 
-class ShipRange(BaseModel):
-    size: int
-    count: int
-
-
-class ShipTypes(BaseModel):
-    carrier: ShipRange
-    battleship: ShipRange
-    cruiser: ShipRange
-    submarine: ShipRange
-    destroyer: ShipRange
-
-
-class ShipLayout(BaseModel):
-    ship: str
-    positions: list[list[int]]
-
-
-class ShipsData(BaseModel):
-    shipTypes: ShipTypes
-    layout: list[ShipLayout]
-
-
-class ShotCoordinates(BaseModel):
-    shot: list[int]
-
-
-class SuccessfulStart(BaseModel):
-    message: Literal["Ok"]
-
-
-class ShotResponse(BaseModel):
-    is_hited_ship: bool
-    dead_ships: int
-    # Данные - корабль - количество подбитий
-    ship_hits: int | None
-    ship_name: str | None
-
-    # Данные - общее количество выстрелов (для вывода финальной фразы со статистикой)
-    total_count: int | None
-
-
 app = FastAPI()
-game10 = 0
 
 app.mount("/static", StaticFiles(directory="Frontend", html=True), name="static")
 
@@ -84,4 +40,4 @@ def shot_data(coordinates: ShotCoordinates):
     return ShotResponse(is_hited_ship=value,
                         dead_ships=dead_ships,
                         ship_name=ship_name,
-                        ship_hits=ship_hits)  # Добавить счётчик общего количества выстрелов
+                        ship_hits=ship_hits)

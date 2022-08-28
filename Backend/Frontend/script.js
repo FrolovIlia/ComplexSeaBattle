@@ -53,7 +53,6 @@ $('.game_field').click(function(e){
             console.log("В этот момент будет заблокирован экран, " +
                         "и показано сообщение со статистикой")
         }
-
     }
     })
 });
@@ -109,7 +108,6 @@ function stopGame(total_shots_counter) {
     document.getElementById("total_score").innerHTML =
         "Congratulations! You won! Total number of shots: " + total_shots_counter;
 }
-
 
 
 for (let shipName in data.shipTypes) {
