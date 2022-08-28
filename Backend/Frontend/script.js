@@ -18,6 +18,17 @@ const data = {
 let total_shots_counter = 0
 
 
+function createHidenImage(source) {
+    const image = document.createElement("img")
+    image.setAttribute("style", "display: none")
+    image.setAttribute("loading", "lazy")
+    image.setAttribute("src", source)
+
+    return image
+}
+const imageMissed = createHidenImage("static/images/black%20x.png")
+const imageHited = createHidenImage("static/images/red%20x.png")
+
 const game_field = document.getElementById("game_field")
 game_field.onclick = function (e) {
     const target = this.getBoundingClientRect();
@@ -63,16 +74,20 @@ game_field.onclick = function (e) {
 
 function drawHits(shot_coordinates, shot_result)  {
     let shot_symbol;
+    let shot_el;
 
     if (shot_result) {
-        shot_symbol = "<img class=\"section_pic\" src=\"static/images/red%20x.png\" alt=\"\">";
+        shot_el = imageHited.cloneNode()
 
     } else {
-        shot_symbol = "<img class=\"section_pic\" src=\"static/images/black%20x.png\" alt=\"\">";
+        shot_el = imageMissed.cloneNode()
     }
 
+
     document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]
-    ).innerHTML = shot_symbol
+    ).appendChild(shot_el)
+    shot_el.removeAttribute("style")
+    shot_el.setAttribute("class", "section_pic")
 }
 
 
