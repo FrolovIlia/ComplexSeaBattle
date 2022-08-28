@@ -20,7 +20,7 @@ html{
     background: #62a79e;
 }
 
-.game_field {
+#game_field {
     margin-top: 10vh;
     width: 70vh;
     height: 70vh;

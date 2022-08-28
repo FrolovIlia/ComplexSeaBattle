@@ -17,11 +17,13 @@ const data = {
 
 let total_shots_counter = 0
 
-$('.game_field').click(function(e){
+
+//Этот элемент нужно переписать на JS (document get element by id)
+$('#game_field').click(function(e){
     const target = this.getBoundingClientRect();
     const y = e.clientX - target.left;
     const x = e.clientY - target.top;
-    const size_sect = $('.game_field').width() / 10;
+    const size_sect = $('#game_field').width() / 10;
 
     let coordinate_x = Math.floor(x/size_sect);
     let coordinate_y = Math.floor(y/size_sect);
@@ -29,33 +31,36 @@ $('.game_field').click(function(e){
 
     console.log(complex_coordinate)
 
-    $.post({
-    url: "/shot_coordinate",
-    dataType: "json",
-    contentType: "application/json",
-    data: JSON.stringify({shot: complex_coordinate}),
-    success: (result) => {
+    fetch("/shot_coordinate", {
+        method: 'POST', // или 'PUT'
+        body: JSON.stringify({shot: complex_coordinate}), // данные могут быть 'строкой' или {объектом}!
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json()
+    }).then(function (result) {
+        console.log(result)
         console.log(result.is_hited_ship);
         drawHits(complex_coordinate, result.is_hited_ship);
         console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
-
         console.log("Название корабля: " + result.ship_name)
         console.log("Попаданий в корабль: " + result.ship_hits)
-
         updateIndicators(result.ship_name, result.ship_hits)
-
         total_shots_counter += 1  //Увеличить общий счётчик выстрелов
         console.log("Всего выстрелов: " + total_shots_counter)
-
         if (result.dead_ships === data["layout"].length) {
             stopGame(total_shots_counter)
             console.log("В этот момент будет заблокирован экран, " +
-                        "и показано сообщение со статистикой")
+                "и показано сообщение со статистикой")
         }
-    }
+    }).catch(function(error) {
+      console.error('Ошибка:', error);
     })
 });
+
+
 
 
 function drawHits(shot_coordinates, shot_result)  {
@@ -118,11 +123,17 @@ for (let shipName in data.shipTypes) {
 document.getElementById("count1").innerHTML = "00";
 
 
-$.post({
-    url: "/start_game",
-    dataType: "json",
-    contentType: "application/json",
-    data: JSON.stringify(data),
-    success: (data) => {data.message}
-})
 
+fetch("/start_game", {
+    method: 'POST', // или 'PUT'
+    body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}).then((response) => {
+    return response.json()
+}).then((result) => {
+    console.log('Успех:', JSON.stringify(result));
+}).catch((error) => {
+    console.error('Ошибка:', error);
+})
