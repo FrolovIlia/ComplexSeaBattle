@@ -23,7 +23,6 @@ function createHidenImage(source) {
     image.setAttribute("style", "display: none")
     image.setAttribute("loading", "lazy")
     image.setAttribute("src", source)
-
     return image
 }
 const imageMissed = createHidenImage("static/images/black%20x.png")
@@ -40,31 +39,31 @@ game_field.onclick = function (e) {
     let coordinate_y = Math.floor(y/size_sect);
     let complex_coordinate = [coordinate_x, coordinate_y]
 
-    console.log(complex_coordinate)
+    // console.log(complex_coordinate)
 
     fetch("/shot_coordinate", {
         method: 'POST', // или 'PUT'
-        body: JSON.stringify({shot: complex_coordinate}), // данные могут быть 'строкой' или {объектом}!
+        body: JSON.stringify({shot: complex_coordinate}),
         headers: {
             'Content-Type': 'application/json'
         }
     }).then(function (response) {
         return response.json()
     }).then(function (result) {
-        console.log(result)
-        console.log(result.is_hited_ship);
+        // console.log(result)
+        // console.log(result.is_hited_ship);
         drawHits(complex_coordinate, result.is_hited_ship);
-        console.log(result.dead_ships);
+        // console.log(result.dead_ships);
         document.getElementById("count1").innerHTML = "0" + result.dead_ships;
-        console.log("Название корабля: " + result.ship_name)
-        console.log("Попаданий в корабль: " + result.ship_hits)
+        // console.log("Название корабля: " + result.ship_name)
+        // console.log("Попаданий в корабль: " + result.ship_hits)
         updateIndicators(result.ship_name, result.ship_hits)
         total_shots_counter += 1  //Увеличить общий счётчик выстрелов
-        console.log("Всего выстрелов: " + total_shots_counter)
+        // console.log("Всего выстрелов: " + total_shots_counter)
         if (result.dead_ships === data["layout"].length) {
             stopGame(total_shots_counter)
-            console.log("В этот момент будет заблокирован экран, " +
-                "и показано сообщение со статистикой")
+            // console.log("В этот момент будет заблокирован экран, " +
+            //     "и показано сообщение со статистикой")
         }
     }).catch(function(error) {
       console.error('Ошибка:', error);
@@ -73,19 +72,37 @@ game_field.onclick = function (e) {
 
 
 function drawHits(shot_coordinates, shot_result)  {
-    let shot_symbol;
     let shot_el;
+    let test_el;
+    let section;
 
-    if (shot_result) {
-        shot_el = imageHited.cloneNode()
+    section = document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1])
+
+    if (section.hasChildNodes()) {
+        return
+    }
+    else {
+        if (shot_result) {
+        test_el = imageHited.cloneNode()
+        if (test_el.hasChildNodes()) {
+
+        }
+        else  {
+            shot_el = test_el
+        }
+
 
     } else {
-        shot_el = imageMissed.cloneNode()
-    }
+        test_el = imageMissed.cloneNode()
+        if (test_el.hasChildNodes()) {
 
+        }
+        else {
+            shot_el = test_el
+        }
+    }}
 
-    document.getElementById("l" + shot_coordinates[0] + "c" + shot_coordinates[1]
-    ).appendChild(shot_el)
+    section.appendChild(shot_el)
     shot_el.removeAttribute("style")
     shot_el.setAttribute("class", "section_pic")
 }
@@ -119,10 +136,9 @@ function updateIndicators(ship_name, ship_hits) {
 
 
 function stopGame(total_shots_counter) {
-    // Заблокировать экран.
     document.getElementById("content-blocker").innerHTML =
         "<div id=\"content-blocker\" class=\"content-blocker\"></div>";
-    // Вывести финальную статистику.
+
     document.getElementById("total_score").innerHTML =
         "Congratulations! You won! Total number of shots: " + total_shots_counter;
 }
@@ -136,17 +152,16 @@ for (let shipName in data.shipTypes) {
 document.getElementById("count1").innerHTML = "00";
 
 
-
 fetch("/start_game", {
     method: 'POST', // или 'PUT'
-    body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+    body: JSON.stringify(data),
     headers: {
         'Content-Type': 'application/json'
     }
 }).then((response) => {
     return response.json()
 }).then((result) => {
-    console.log('Успех:', JSON.stringify(result));
+    // console.log('Успех:', JSON.stringify(result));
 }).catch((error) => {
-    console.error('Ошибка:', error);
+    // console.error('Ошибка:', error);
 })

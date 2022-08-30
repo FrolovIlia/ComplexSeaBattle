@@ -2,7 +2,7 @@ import asyncio
 import uvicorn
 
 
-async def app(scope, receive, send):
+async def app(scope, send):
     assert scope['type'] == 'http'
 
     await send({

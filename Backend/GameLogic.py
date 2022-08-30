@@ -1,4 +1,4 @@
-from Ships import dict_indicator_pos, Ship
+from Ships import Ship
 
 
 class GameFieldCondition:
@@ -7,21 +7,20 @@ class GameFieldCondition:
         self.field_with_ships = None
         self.start_field()
         self.all_ships = []
-        self.add_ships(local_ships_dict, dict_indicator_pos)
+        self.add_ships(local_ships_dict)
 
     def start_field(self):
         field_size = 10
         self.base_field = [['~'] * field_size for _ in range(field_size)]
 
-    def add_ships(self, json_ship_dict, indicator_pos_dict):
+    def add_ships(self, json_ship_dict):
         self.field_with_ships = [line.copy() for line in self.base_field]
 
         for ship in json_ship_dict["layout"]:
-            indicator_pos = indicator_pos_dict[ship['ship']]
-            ship_instance = Ship(ship['positions'], ship['ship'], indicator_pos)
+            ship_instance = Ship(ship['positions'], ship['ship'])
             self.all_ships.append(ship_instance)
 
-            for x, y in ship_instance.positions:
+            for y, x in ship_instance.positions:
                 self.field_with_ships[x][y] = ship_instance
 
     def note_shoot(self, shoot: list):
