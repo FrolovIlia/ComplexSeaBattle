@@ -8,6 +8,15 @@ html{
     flex-direction: row;
 }
 
+@media screen and (max-width: 350px){
+    .counters{
+        /*margin-top: 10vh;*/
+        display: flex;
+        flex-direction: row;
+}
+}
+
+
 .counter_1{
     width: 12vw;
     height: 12vw;
@@ -38,6 +47,13 @@ html{
     row-gap: 1px;
 }
 
+@media screen and (max-width: 350px){
+    #game_field {
+        width: 90vw;
+        height: 90vw;
+    }
+}
+
 .container{
     display: flex;
     justify-content: center;
@@ -47,6 +63,8 @@ html{
     display: flex;
     flex-direction: column;
 }
+
+
 
 .ship_division{
     display: flex;
