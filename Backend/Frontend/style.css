@@ -10,12 +10,11 @@ html{
 
 @media screen and (max-width: 350px){
     .counters{
-        /*margin-top: 10vh;*/
+        margin-top: 0;
         display: flex;
         flex-direction: row;
+    }
 }
-}
-
 
 .counter_1{
     width: 12vw;
@@ -23,10 +22,25 @@ html{
     background: #facb03;
 }
 
+@media screen and (max-width: 350px){
+    .counter_1 {
+        width: 50vw;
+        height: 25vw;
+    }
+}
+
 .counter_2{
     width: 12vw;
     height: 12vw;
     background: #62a79e;
+}
+
+@media screen and (max-width: 350px){
+    .counter_2{
+        width: 50vw;
+        height: 25vw;
+        background: #62a79e;
+    }
 }
 
 #game_field {
@@ -49,8 +63,9 @@ html{
 
 @media screen and (max-width: 350px){
     #game_field {
-        width: 90vw;
-        height: 90vw;
+        margin-top: 0;
+        width: 93vw;
+        height: 93vw;
     }
 }
 
@@ -59,12 +74,18 @@ html{
     justify-content: center;
 }
 
+@media screen and (max-width: 350px){
+    .container{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+}
+
 .elements{
     display: flex;
     flex-direction: column;
 }
-
-
 
 .ship_division{
     display: flex;
@@ -72,12 +93,12 @@ html{
     width: 70vh;
 }
 
-
 @media screen and (max-width: 350px){
-    .container{
-        display: flex;
-        flex-direction: column-reverse;
-        justify-content: center;
+    .ship_division{
+        flex-wrap: wrap;
+        width: 10vh;
+        height: 20vh;
+        /*Поджимать высоту*/
     }
 }
 
@@ -88,8 +109,21 @@ html{
     margin-top: 4.5%
 }
 
+@media screen and (max-width: 350px){
+    .ship_condition {
+        width: 50vw;
+        margin-top: 20%
+    }
+}
+
 .indicator_cell > img{
     height: 4vh;
+}
+
+@media screen and (max-width: 350px){
+    .indicator_cell > img{
+        height: 2.5vh;
+    }
 }
 
 .score_style{
@@ -104,6 +138,15 @@ html{
     text-transform: uppercase;
 }
 
+@media screen and (max-width: 350px){
+    .score_style{
+        margin-top: 10%;
+        margin-bottom: 10%;
+        font-size: 4rem;
+        line-height: 70%;
+    }
+}
+
 .counter_line{
     display: flex;
     margin-left: 10%;
@@ -111,6 +154,12 @@ html{
     height: 2px;
     background: black;
     align-items: center;
+}
+
+@media screen and (max-width: 350px){
+    .counter_line{
+        height: 2%;
+    }
 }
 
 .player_name{
@@ -123,10 +172,25 @@ html{
     text-transform: lowercase;
 }
 
+@media screen and (max-width: 350px){
+    .player_name{
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-size: 2rem;
+    }
+}
+
 .img1{
     display: block;
     width: 30%;
 }
+
+@media screen and (max-width: 350px){
+    .img1{
+        width: 50%;
+    }
+}
+
 
 .section{
     width: 9%;
@@ -157,5 +221,10 @@ html{
     text-align: center;
 }
 
+@media screen and (max-width: 350px){
+    .total_score_style {
+        font-size: 1.5rem;
+    }
+}
 
 
