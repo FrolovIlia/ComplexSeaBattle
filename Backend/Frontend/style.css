@@ -11,8 +11,13 @@ html{
 @media screen and (max-width: 350px){
     .counters{
         margin-top: 0;
-        display: flex;
-        flex-direction: row;
+    }
+}
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .counters{
+        margin-top: 3vh;
     }
 }
 
@@ -42,6 +47,16 @@ html{
         background: #62a79e;
     }
 }
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .count_elements{
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+
 
 #game_field {
     margin-top: 10vh;
@@ -75,6 +90,15 @@ html{
 }
 
 @media screen and (max-width: 350px){
+    .container{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+}
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
     .container{
         display: flex;
         flex-direction: column-reverse;

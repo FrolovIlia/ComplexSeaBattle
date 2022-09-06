@@ -1,3 +1,13 @@
+## Installation
+
+```bash
+
+python3 -m venv venv
+sourse./venv/bin/activate
+pip install -r requirements.txt
+```
+
+
 Design and implement a (partial) Battleship game as a web app.
 
 In Battleship, the computer has positioned five ships of various sizes on a 10x10 board.
