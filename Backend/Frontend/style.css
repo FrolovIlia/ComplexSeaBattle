@@ -18,6 +18,8 @@ html{
     and (max-device-width: 1024px) {
     .counters{
         margin-top: 3vh;
+        margin-left: 2vw;
+        width: 30vw;
     }
 }
 
@@ -33,6 +35,15 @@ html{
         height: 25vw;
     }
 }
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .counter_1 {
+        width: 15vw;
+        height: 15vw;
+    }
+}
+
 
 .counter_2{
     width: 12vw;
@@ -50,9 +61,21 @@ html{
 
 @media screen and (min-device-width: 768px)
     and (max-device-width: 1024px) {
+    .counter_2 {
+        width: 15vw;
+        height: 15vw;
+    }
+}
+
+
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
     .count_elements{
         display: flex;
+        justify-content: flex-end;
         flex-direction: row;
+        width: 100vw;
     }
 }
 
@@ -84,6 +107,16 @@ html{
     }
 }
 
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    #game_field {
+        margin-top: 3vh;
+        margin-left: 2vw;
+        width: 95vw;
+        height: 95vw;
+    }
+}
+
 .container{
     display: flex;
     justify-content: center;
@@ -111,6 +144,7 @@ html{
     flex-direction: column;
 }
 
+
 .ship_division{
     display: flex;
     flex-direction: column;
@@ -122,9 +156,25 @@ html{
         flex-wrap: wrap;
         width: 10vh;
         height: 20vh;
-        /*Поджимать высоту*/
     }
 }
+
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .ship_division{
+        margin-top: 2vh;
+        margin-left: 3vw;
+        display: flex;
+        flex-direction: row;
+
+        flex-wrap: wrap;
+        width: 66vw;
+        height: 20vw;
+    }
+}
+
+
 
 .ship_condition{
     display: flex;
@@ -140,6 +190,19 @@ html{
     }
 }
 
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .ship_condition {
+        margin-top: 0;
+        height: 5vw;
+        width: 30vw;
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+
+
 .indicator_cell > img{
     height: 4vh;
 }
@@ -149,6 +212,15 @@ html{
         height: 2.5vh;
     }
 }
+
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .indicator_cell > img{
+        height: 2.5vh;
+    }
+}
+
 
 .score_style{
     margin-top: 15%;
