@@ -44,7 +44,6 @@ html{
     }
 }
 
-
 .counter_2{
     width: 12vw;
     height: 12vw;
@@ -67,8 +66,6 @@ html{
     }
 }
 
-
-
 @media screen and (min-device-width: 768px)
     and (max-device-width: 1024px) {
     .count_elements{
@@ -78,8 +75,6 @@ html{
         width: 100vw;
     }
 }
-
-
 
 #game_field {
     margin-top: 10vh;
@@ -144,7 +139,6 @@ html{
     flex-direction: column;
 }
 
-
 .ship_division{
     display: flex;
     flex-direction: column;
@@ -159,7 +153,6 @@ html{
     }
 }
 
-
 @media screen and (min-device-width: 768px)
     and (max-device-width: 1024px) {
     .ship_division{
@@ -173,8 +166,6 @@ html{
         height: 20vw;
     }
 }
-
-
 
 .ship_condition{
     display: flex;
@@ -201,8 +192,6 @@ html{
     }
 }
 
-
-
 .indicator_cell > img{
     height: 4vh;
 }
@@ -213,14 +202,12 @@ html{
     }
 }
 
-
 @media screen and (min-device-width: 768px)
     and (max-device-width: 1024px) {
     .indicator_cell > img{
         height: 2.5vh;
     }
 }
-
 
 .score_style{
     margin-top: 15%;
@@ -287,7 +274,6 @@ html{
     }
 }
 
-
 .section{
     width: 9%;
     height: 9%;
@@ -306,7 +292,6 @@ html{
 		left: 0;
 		width: 100%;
 		height: 100%;
-		/*background-color: rgba(136, 136, 204, 0.5);*/
 		z-index: 4444;
 	}
 
@@ -322,5 +307,4 @@ html{
         font-size: 1.5rem;
     }
 }
-
 
