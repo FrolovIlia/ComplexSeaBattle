@@ -1,4 +1,3 @@
-
 class Ship:
 
     def __init__(self, positions: list, name: str, padded_pos=None):
@@ -9,7 +8,6 @@ class Ship:
             self.padded_pos = padded_pos
             self.ship_name = name
             self.positions = positions
-
 
     # подбитие корабля
     def hit_at_ship(self, shot):
